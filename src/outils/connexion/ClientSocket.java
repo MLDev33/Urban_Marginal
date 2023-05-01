@@ -1,6 +1,9 @@
 package outils.connexion;
 
 import java.io.IOException;
+
+import controleur.Controle;
+
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -12,6 +15,8 @@ import javax.swing.JOptionPane;
  *
  */
 public class ClientSocket {
+	
+	private Controle controle;
 	
 	/**
 	 * Constructeur : crée le socket de type client pour se connecter à un serveur (avec son ip et port d'écoute)

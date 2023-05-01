@@ -1,6 +1,9 @@
 package vue;
 
 import java.awt.Dimension;
+
+import controleur.Controle;
+
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -30,11 +33,16 @@ public class Arene extends JFrame {
 	 * Zone d'affichage du t'chat
 	 */
 	private JTextArea txtChat ;
+	
+	private Controle controle;
 
 	/**
 	 * Create the frame.
 	 */
-	public Arene() {
+	public Arene(Controle controle) {
+		
+		this.controle = controle;
+		
 		// Dimension de la frame en fonction de son contenu
 		this.getContentPane().setPreferredSize(new Dimension(800, 600 + 25 + 140));
 	    this.pack();

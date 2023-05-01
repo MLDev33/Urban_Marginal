@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controleur.Controle;
+
 /**
  * Frame de l'entrée dans le jeu (choix entre serveur et client)
  * @author emds
@@ -24,12 +26,13 @@ public class EntreeJeu extends JFrame {
 	 */
 	private JTextField txtIp;
 
+	private Controle controle;
+	
 	/**
 	 * clic sur le bouton Start pour lancer le serveur
 	 */
 	private void btnStart_clic() {
-		(new Arene()).setVisible(true);
-		this.dispose();
+		controle.evenementEntreeJeu("serveur");
 	}
 	
 	/**
@@ -43,14 +46,17 @@ public class EntreeJeu extends JFrame {
 	 * clic sur le bouton Connect pour se connecter à un serveur
 	 */
 	private void btnConnect_clic() {
-		(new ChoixJoueur()).setVisible(true);
-		this.dispose();
+		controle.evenementEntreeJeu(txtIp.getText());
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public EntreeJeu() {
+	public EntreeJeu(Controle controle) {
+		
+		// récupération de l'instance de Controle
+		this.controle = controle;
+		
 		setResizable(false);
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
