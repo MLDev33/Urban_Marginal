@@ -6,6 +6,8 @@ import modele.Jeu;
 import modele.JeuServeur;
 import modele.JeuClient;
 
+import controleur.Global;
+
 import vue.Arene;
 import vue.ChoixJoueur;
 import outils.connexion.AsyncResponse;
@@ -19,7 +21,7 @@ import outils.connexion.ServeurSocket;
  * @author emds
  *
  */
-public class Controle implements AsyncResponse {
+public class Controle implements AsyncResponse, Global{
 
 	// propiétés
 	
@@ -41,10 +43,6 @@ public class Controle implements AsyncResponse {
 	private ClientSocket clientSocket;
 	
 	private String typeJeu;
-	/**
-	 * N° du port d'écoute du serveur
-	 */
-	private static int PORT = 6666;
 	
 	private Jeu leJeu;
 
@@ -106,7 +104,7 @@ public class Controle implements AsyncResponse {
 	@Override
 	public void reception(Connection connection, String ordre, Object info) {
 		switch (ordre) {
-		case "connexion":
+		case CONNEXION :
 			if (leJeu instanceof JeuClient) {
 				this.frmEntreeJeu.dispose();
 				this.frmArene = new Arene(this);
@@ -117,11 +115,11 @@ public class Controle implements AsyncResponse {
 				leJeu.connexion(connection);
 			}
 			break;
-		case "réception":
+		case RECEPTION:
 			leJeu.reception(connection, info);
 
 			break;
-		case "déconnexion":
+		case DECONNEXION:
 
 			break;
 		}

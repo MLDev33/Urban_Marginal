@@ -3,6 +3,8 @@ package modele;
 import controleur.Controle;
 import outils.connexion.Connection;
 
+import controleur.Global;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -10,7 +12,7 @@ import java.util.Hashtable;
  * Gestion du jeu côté serveur
  *
  */
-public class JeuServeur extends Jeu {
+public class JeuServeur extends Jeu implements Global{
 
 	/**
 	 * Collection de murs
@@ -35,8 +37,15 @@ public class JeuServeur extends Jeu {
 
 	@Override
 	public void reception(Connection connection, Object info) {
-		String[] chaine = info.toString().split("~");
-
+		String[] chaine = info.toString().split(STRINGSEPARE);
+		String ordre = chaine[0];
+		switch(ordre) {
+		case (PSEUDO) :
+			String pseudo = chaine[1];
+			int numPerso = Integer.parseInt(chaine[2]);
+			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso);
+			break;
+		}
 	}
 	
 	

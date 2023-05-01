@@ -6,6 +6,8 @@ import controleur.Controle;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 
+import controleur.Global;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ import javax.swing.SwingConstants;
  * @author emds
  *
  */
-public class ChoixJoueur extends JFrame {
+public class ChoixJoueur extends JFrame implements Global{
 
 	/**
 	 * Panel général
@@ -39,9 +41,7 @@ public class ChoixJoueur extends JFrame {
 	
 	private int numPerso;
 	
-	private static int MAXPERSO = 3;
-	
-	private static int MINPERSO = 1;
+
 
 	/**
 	 * Clic sur la flèche "précédent" pour afficher le personnage précédent
@@ -86,7 +86,7 @@ public class ChoixJoueur extends JFrame {
 	 * Affiche les personnage selon leur numéro
 	 */
 	public void affichePerso() {
-		String cheminPerso = "personnages/perso" + this.numPerso + "marche1d1.gif";
+		String cheminPerso = CHEMINPERSONNAGES+PERSO+this.numPerso+MARCHE+1+"d"+1+EXTFICHIERPERSO;
 		URL resourcePerso = getClass().getClassLoader().getResource(cheminPerso);
 		lblPersonnage.setIcon(new ImageIcon(resourcePerso));
 	}
@@ -191,8 +191,7 @@ public class ChoixJoueur extends JFrame {
 		
 		JLabel lblFond = new JLabel("");
 		lblFond.setBounds(0, 0, 400, 275);
-		String chemin = "fonds/fondchoix.jpg";
-		URL resource = getClass().getClassLoader().getResource(chemin);
+		URL resource = getClass().getClassLoader().getResource(FONDCHOIX);
 		lblFond.setIcon(new ImageIcon(resource));		
 		contentPane.add(lblFond);
 		
