@@ -1,9 +1,6 @@
 package outils.connexion;
 
 import java.io.IOException;
-
-import controleur.Controle;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -22,8 +19,7 @@ public class ServeurSocket extends Thread {
 	 * objet de lien avec une autre classe qui implémente AsyncResponse pour transférer les réponses
 	 */
 	private AsyncResponse delegate=null; 
-	
-	private Controle controle;
+
 	
 	/**
 	 * Constructeur

@@ -196,6 +196,7 @@ public class ChoixJoueur extends JFrame implements Global{
 		contentPane.add(lblFond);
 		
 		
+		
 		// initialisation du numéro de personnage
 		numPerso = 1;
 		affichePerso();

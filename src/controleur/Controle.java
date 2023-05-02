@@ -1,13 +1,10 @@
 package controleur;
 
 import vue.EntreeJeu;
-
+import controleur.Global;
 import modele.Jeu;
 import modele.JeuServeur;
 import modele.JeuClient;
-
-import controleur.Global;
-
 import vue.Arene;
 import vue.ChoixJoueur;
 import outils.connexion.AsyncResponse;
@@ -21,10 +18,10 @@ import outils.connexion.ServeurSocket;
  * @author emds
  *
  */
-public class Controle implements AsyncResponse, Global{
+public class Controle implements AsyncResponse, Global {
 
 	// propiétés
-	
+
 	/**
 	 * frame EntreeJeu
 	 */
@@ -37,13 +34,11 @@ public class Controle implements AsyncResponse, Global{
 	 * frame ChoixJoueur
 	 */
 	private ChoixJoueur frmChoixJoueur;
-	
+
 	private ServeurSocket serverSocket;
-	
+
 	private ClientSocket clientSocket;
-	
-	private String typeJeu;
-	
+
 	private Jeu leJeu;
 
 	/**
@@ -62,57 +57,70 @@ public class Controle implements AsyncResponse, Global{
 		this.frmEntreeJeu = new EntreeJeu(this);
 		this.frmEntreeJeu.setVisible(true);
 	}
-	
+
 	/**
 	 * Demande provenant de la vue EntreeJeu
+	 * 
 	 * @param info information à traiter
 	 */
 	public void evenementEntreeJeu(String info) {
 		if (info.equals("serveur")) {
-			leJeu = new JeuServeur(this);
-			this.serverSocket = new ServeurSocket(this, PORT);
+			new ServeurSocket(this, PORT);
+			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
 			this.frmArene = new Arene(this);
+			((JeuServeur) leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		} else {
-			leJeu = new JeuClient(this);
-			this.clientSocket = new ClientSocket(this, info, PORT);
-			this.frmEntreeJeu.dispose();
+			new ClientSocket(this, info, PORT);
 		}
 	}
 
-	
+	// public void evenementJeuServeur(String ordre, Object info) {
+	// if(ordre.equals("ajout mur")) {
+	//frmArene.ajoutMurs(info);
+	// }
+	// }
+
+	public void evenementJeuServeur(String ordre, Object info) {
+		switch(ordre) {
+		case AJOUTMUR :
+			frmArene.ajoutMurs(info);
+			break;
+		case AJOUTPANELMURS :
+			this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
+		}
+	}
+
 	/**
 	 * Informations provenant de la vue ChoixJoueur
-	 * @param pseudo le pseudo du joueur
+	 * 
+	 * @param pseudo   le pseudo du joueur
 	 * @param numPerso le numéro du personnage choisi par le joueur
 	 */
 	public void evenementChoixJoueur(String pseudo, int numPerso) {
 		this.frmChoixJoueur.dispose();
 		this.frmArene.setVisible(true);
-		String chaine = "pseudo" + "~" + pseudo  + "~" + Integer.toString(numPerso);
-		((JeuClient)leJeu).envoi(chaine);
+		((JeuClient) this.leJeu).envoi(PSEUDO + STRINGSEPARE + pseudo + STRINGSEPARE + numPerso);
 	}
-	
-	
-	public void envoi(Connection uneConnection, Object unObject) {
-		uneConnection.envoi(unObject);
+
+	public void envoi(Connection uneConnection, Object info) {
+		uneConnection.envoi(info);
 	}
-	
-	
-	
+
 	@Override
 	public void reception(Connection connection, String ordre, Object info) {
 		switch (ordre) {
-		case CONNEXION :
+		case CONNEXION:
 			if (leJeu instanceof JeuClient) {
+				this.leJeu = new JeuClient(this);
+				this.leJeu.connexion(connection);
 				this.frmEntreeJeu.dispose();
 				this.frmArene = new Arene(this);
 				this.frmChoixJoueur = new ChoixJoueur(this);
 				this.frmChoixJoueur.setVisible(true);
-				leJeu.connexion(connection);
 			} else {
-				leJeu.connexion(connection);
+				this.leJeu.connexion(connection);
 			}
 			break;
 		case RECEPTION:
@@ -120,7 +128,6 @@ public class Controle implements AsyncResponse, Global{
 
 			break;
 		case DECONNEXION:
-
 			break;
 		}
 

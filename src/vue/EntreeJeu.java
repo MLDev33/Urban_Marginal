@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controleur.Controle;
+import javax.swing.ImageIcon;
 
 /**
  * Frame de l'entrée dans le jeu (choix entre serveur et client)

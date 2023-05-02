@@ -108,6 +108,34 @@ public interface Global {
 	 * état mort du personnage
 	 */
 	String MORT = "mort";
+	/**
+	 * Lageur de l'arene
+	 */
+	int LARGEURARENE = 800;	
+	/**
+	 * Hauteur de l'arene
+	 */
+	int HAUTEURARENE = 600;
+	/**
+	 * hauteur d'un mur
+	 */
+	int HAUTEURMUR = 35;
+	/**
+	 * largeur d'un mur
+	 */
+	int LARGEURMUR = 34;
+	/**
+	 * nombre de murs dans l'arène
+	 */
+	int NBMURS = 20;
+	/**
+	 * ordre pour ajouter un mur dans l'arène du serveur
+	 */
+	String AJOUTMUR = "ajout mur";
+	/**
+	 * ordre pour ajouter le panel des murs dans l'arène du client
+	 */
+	String AJOUTPANELMURS = "ajout panel murs";
 	
 	
 
