@@ -76,7 +76,7 @@ public class ChoixJoueur extends JFrame implements Global{
 			txtPseudo.requestFocus();
 		}
 		else {
-			controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
+			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
 		}
 		
 	}
@@ -110,6 +110,7 @@ public class ChoixJoueur extends JFrame implements Global{
 	 */
 	public ChoixJoueur(Controle controle) {
 		
+		// récupération de l'instance de Controle
 		this.controle = controle;
 		
 		// Dimension de la frame en fonction de son contenu

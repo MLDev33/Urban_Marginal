@@ -129,6 +129,10 @@ public interface Global {
 	 */
 	int NBMURS = 20;
 	/**
+	 * Message "serveur" pour la création d'un serveur
+	 */
+	String SERVEUR = "serveur";
+	/**
 	 * ordre pour ajouter un mur dans l'arène du serveur
 	 */
 	String AJOUTMUR = "ajout mur";

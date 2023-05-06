@@ -47,7 +47,7 @@ public class EntreeJeu extends JFrame {
 	 * clic sur le bouton Connect pour se connecter à un serveur
 	 */
 	private void btnConnect_clic() {
-		controle.evenementEntreeJeu(txtIp.getText());
+		this.controle.evenementEntreeJeu(this.txtIp.getText());
 	}
 
 	/**

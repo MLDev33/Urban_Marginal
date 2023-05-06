@@ -11,6 +11,7 @@ import outils.connexion.AsyncResponse;
 import outils.connexion.ClientSocket;
 import outils.connexion.Connection;
 import outils.connexion.ServeurSocket;
+import javax.swing.JPanel;
 
 /**
  * Contrôleur et point d'entrée de l'applicaton
@@ -38,7 +39,9 @@ public class Controle implements AsyncResponse, Global {
 	private ServeurSocket serverSocket;
 
 	private ClientSocket clientSocket;
-
+	/**
+	 * instance du jeu (JeuServeur ou JeuClient)
+	 */
 	private Jeu leJeu;
 
 	/**
@@ -64,12 +67,12 @@ public class Controle implements AsyncResponse, Global {
 	 * @param info information à traiter
 	 */
 	public void evenementEntreeJeu(String info) {
-		if (info.equals("serveur")) {
+		if (info.equals(SERVEUR)) {
 			new ServeurSocket(this, PORT);
 			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
 			this.frmArene = new Arene(this);
-			((JeuServeur) leJeu).constructionMurs();
+			((JeuServeur) this.leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		} else {
 			new ClientSocket(this, info, PORT);
@@ -78,17 +81,31 @@ public class Controle implements AsyncResponse, Global {
 
 	// public void evenementJeuServeur(String ordre, Object info) {
 	// if(ordre.equals("ajout mur")) {
-	//frmArene.ajoutMurs(info);
+	// frmArene.ajoutMurs(info);
 	// }
 	// }
 
 	public void evenementJeuServeur(String ordre, Object info) {
-		switch(ordre) {
-		case AJOUTMUR :
+		switch (ordre) {
+		case AJOUTMUR:
 			frmArene.ajoutMurs(info);
 			break;
-		case AJOUTPANELMURS :
+		case AJOUTPANELMURS:
 			this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
+		}
+	}
+
+	/**
+	 * Demande provenant de JeuClient
+	 * 
+	 * @param ordre
+	 * @param info
+	 */
+	public void evenementJeuClient(String ordre, Object info) {
+		switch (ordre) {
+		case AJOUTPANELMURS:
+			this.frmArene.setJpnMurs((JPanel) info);
+			break;
 		}
 	}
 
@@ -104,15 +121,15 @@ public class Controle implements AsyncResponse, Global {
 		((JeuClient) this.leJeu).envoi(PSEUDO + STRINGSEPARE + pseudo + STRINGSEPARE + numPerso);
 	}
 
-	public void envoi(Connection uneConnection, Object info) {
-		uneConnection.envoi(info);
+	public void envoi(Connection connection, Object info) {
+		connection.envoi(info);
 	}
 
 	@Override
 	public void reception(Connection connection, String ordre, Object info) {
 		switch (ordre) {
 		case CONNEXION:
-			if (leJeu instanceof JeuClient) {
+			if (!(this.leJeu instanceof JeuServeur)) {
 				this.leJeu = new JeuClient(this);
 				this.leJeu.connexion(connection);
 				this.frmEntreeJeu.dispose();
@@ -124,8 +141,7 @@ public class Controle implements AsyncResponse, Global {
 			}
 			break;
 		case RECEPTION:
-			leJeu.reception(connection, info);
-
+			this.leJeu.reception(connection, info);
 			break;
 		case DECONNEXION:
 			break;

@@ -32,7 +32,7 @@ public class JeuServeur extends Jeu implements Global{
 	
 	@Override
 	public void connexion(Connection connection) {
-		lesJoueurs.put(connection, new Joueur());
+		this.lesJoueurs.put(connection, new Joueur());
 	}
 
 	@Override
@@ -41,6 +41,7 @@ public class JeuServeur extends Jeu implements Global{
 		String ordre = chaine[0];
 		switch(ordre) {
 		case (PSEUDO) :
+			controle.evenementJeuServeur(AJOUTPANELMURS, connection);
 			String pseudo = chaine[1];
 			int numPerso = Integer.parseInt(chaine[2]);
 			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso);
