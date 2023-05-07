@@ -1,6 +1,8 @@
 package vue;
 
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import controleur.Controle;
 import controleur.Global;
@@ -80,6 +82,21 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
+	 * @return the txtChat
+	 */
+	public String getTxtChat() {
+		return txtChat.getText();
+	}
+
+	/**
+	 * @param txtChat the txtChat to set
+	 */
+	public void setTxtChat(String txtChat) {
+		this.txtChat.setText(txtChat);
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
+	}
+	
+	/**
 	 * Ajoute un mur dans le panel des murs
 	 * @param unMur le mur à ajouter
 	 */
@@ -89,12 +106,32 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
+	 * Ajout d'une phrase à insérer à la fin du tchat
+	 * @param phrase phase à insérer
+	 */
+	public void ajoutTchat(String phrase) {
+		this.txtChat.setText(this.txtChat.getText()+phrase+"\r\n");
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
+	}
+	
+	/**
 	 * Ajout d'un joueur, son message ou sa boule, dans le panel de jeu
 	 * @param unJLabel le label à ajouter
 	 */
 	public void ajoutJLabelJeu(JLabel unJLabel) {
 		this.jpnJeu.add(unJLabel);
 		this.jpnJeu.repaint();
+	}
+	
+	public void txtSaisie_KeyPressed(KeyEvent e) {
+		// si validation
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			// si la zone de saisie n'est pas vide
+			if(!this.txtSaisie.getText().equals("")) {
+				this.controle.evenementArene(this.txtSaisie.getText());
+				this.txtSaisie.setText("");
+			}
+		}
 	}
 	
 	/**
@@ -134,7 +171,14 @@ public class Arene extends JFrame implements Global {
 		jpnMurs.setLayout(null);		
 		contentPane.add(jpnMurs);
 		
+		
 		txtSaisie = new JTextField();
+		txtSaisie.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtSaisie_KeyPressed(e);
+			}
+		});
 		txtSaisie.setBounds(0, 600, 800, 25);
 		contentPane.add(txtSaisie);
 		txtSaisie.setColumns(10);

@@ -81,6 +81,9 @@ public class Controle implements AsyncResponse, Global {
 		}
 	}
 
+	public void evenementArene(String info) {
+		((JeuClient)this.leJeu).envoi(TCHAT+STRINGSEPARE+info);
+	}
 
 	/**
 	 * Demande provenant de JeuServeur
@@ -92,7 +95,7 @@ public class Controle implements AsyncResponse, Global {
 		case AJOUTMUR:
 			frmArene.ajoutMurs(info);
 			break;
-		case AJOUTPANELMURS:
+		case AJOUTPANELMURS: 
 			this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
 			break;
 		case AJOUTJLABELJEU:
@@ -100,6 +103,10 @@ public class Controle implements AsyncResponse, Global {
 			break;
 		case MODIFPANELJEU :
 			this.leJeu.envoi((Connection)info, this.frmArene.getJpnJeu());
+			break;
+		case AJOUTPHRASE :
+			this.frmArene.ajoutTchat((String)info);
+			((JeuServeur)this.leJeu).envoi(this.frmArene.getTxtChat());
 			break;
 		}
 	}
@@ -117,6 +124,9 @@ public class Controle implements AsyncResponse, Global {
 			break;
 		case MODIFPANELJEU :
 			this.frmArene.setJpnJeu((JPanel)info);
+			break;
+		case MODIFTCHAT :
+			this.frmArene.setTxtChat((String)info);
 			break;
 		}
 	}

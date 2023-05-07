@@ -22,7 +22,7 @@ public class Joueur extends Objet implements Global {
 	 * pseudo saisi
 	 */
 	private String pseudo ;
-	
+
 	private JLabel message;
 	/**
 	 * n° correspondant au personnage (avatar) pour le fichier correspondant
@@ -48,6 +48,13 @@ public class Joueur extends Objet implements Global {
 	 * tourné vers la gauche (0) ou vers la droite (1)
 	 */
 	private int orientation ;
+	
+	/**
+	 * @return the pseudo
+	 */
+	public String getPseudo() {
+		return pseudo;
+	}
 	
 	/**
 	 * Constructeur
