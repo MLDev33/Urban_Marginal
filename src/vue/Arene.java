@@ -47,7 +47,10 @@ public class Arene extends JFrame implements Global {
 	private JTextArea txtChat;
 
 	private Controle controle;
-
+	/**
+	 * Permet de savoir si c'est une arène client ou serveur
+	 */
+	private Boolean client;
 
 	/**
 	 * 
@@ -137,9 +140,9 @@ public class Arene extends JFrame implements Global {
 	/**
 	 * Create the frame.
 	 */
-	public Arene(Controle controle) {
-
+	public Arene(Controle controle, String typeJeu) {
 		this.controle = controle;
+		this.client = typeJeu.equals(CLIENT);
 
 		// Dimension de la frame en fonction de son contenu
 		this.getContentPane().setPreferredSize(new Dimension(LARGEURARENE, HAUTEURARENE+ 25 + 140));
@@ -172,16 +175,18 @@ public class Arene extends JFrame implements Global {
 		contentPane.add(jpnMurs);
 		
 		
-		txtSaisie = new JTextField();
-		txtSaisie.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				txtSaisie_KeyPressed(e);
-			}
-		});
-		txtSaisie.setBounds(0, 600, 800, 25);
-		contentPane.add(txtSaisie);
-		txtSaisie.setColumns(10);
+		if(this.client) {
+			txtSaisie = new JTextField();
+			txtSaisie.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					txtSaisie_KeyPressed(e);
+				}
+			});
+			txtSaisie.setBounds(0, 600, 800, 25);
+			contentPane.add(txtSaisie);
+			txtSaisie.setColumns(10);
+		}
 
 		JScrollPane jspChat = new JScrollPane();
 		jspChat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
