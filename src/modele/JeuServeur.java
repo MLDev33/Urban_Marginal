@@ -47,6 +47,7 @@ public class JeuServeur extends Jeu implements Global{
 			String pseudo = chaine[1];
 			int numPerso = Integer.parseInt(chaine[2]);
 			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso, this.lesJoueurs.values(), this.lesMurs);
+			this.controle.evenementJeuServeur(AJOUTPHRASE, "*** "+pseudo+" vient de se connecter ***");
 			break;
 		case TCHAT :
 			String phrase = chaine[1];
