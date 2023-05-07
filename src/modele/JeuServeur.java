@@ -67,7 +67,16 @@ public class JeuServeur extends Jeu implements Global{
 	 */
 	public void envoi() {
 	}
-
+	
+	/**
+	 * Envoi du panel de jeu à tous les joueurs
+	 */
+	public void envoiJeuATous() {
+		for(Connection connection : this.lesJoueurs.keySet()) {
+			this.controle.evenementJeuServeur(MODIFPANELJEU, connection);
+		}
+	}
+	
 	/**
 	 * Génération des murs
 	 */

@@ -104,6 +104,8 @@ public class Joueur extends Objet implements Global {
 		// positionnement et remplissage du message sous le perosnnage
 		this.message.setBounds(posX-10, posY+HAUTEURPERSO, LARGEURPERSO+10, HAUTEURMESSAGE);
 		this.message.setText(pseudo+" : "+vie);
+		// demande d'envoi à tous des modifications d'affichage
+		this.jeuServeur.envoiJeuATous();
 	}
 
 	/**
