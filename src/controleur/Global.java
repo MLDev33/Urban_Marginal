@@ -129,6 +129,26 @@ public interface Global {
 	 */
 	int NBMURS = 20;
 	/**
+	 * hauteur du personnage
+	 */
+	int HAUTEURPERSO = 44;
+	/**
+	 * largeur du personnage
+	 */
+	int LARGEURPERSO = 39;
+	/**
+	 * hauteur du message
+	 */
+	int HAUTEURMESSAGE = 8;
+	/**
+	 * orientation du personnage vers la gauche
+	 */
+	int GAUCHE = 0;
+	/**
+	 * orientation du personnage vers la droite
+	 */
+	int DROITE = 1;
+	/**
 	 * Message "serveur" pour la création d'un serveur
 	 */
 	String SERVEUR = "serveur";
@@ -140,7 +160,14 @@ public interface Global {
 	 * ordre pour ajouter le panel des murs dans l'arène du client
 	 */
 	String AJOUTPANELMURS = "ajout panel murs";
-	
+	/**
+	 * ordre pour ajouter un jLabel dans l'arène du serveur (joueur, message, boule)
+	 */
+	String AJOUTJLABELJEU = "ajout jLabel jeu";
+	/**
+	 * ordre pour modifier le panel du jeu dans l'aeène du client
+	 */
+	String MODIFPANELJEU = "modif panel jeu";
 	
 
 }

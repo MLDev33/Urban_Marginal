@@ -8,6 +8,8 @@ import controleur.Global;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import javax.swing.JLabel;
+
 /**
  * Gestion du jeu côté serveur
  *
@@ -32,7 +34,7 @@ public class JeuServeur extends Jeu implements Global{
 	
 	@Override
 	public void connexion(Connection connection) {
-		this.lesJoueurs.put(connection, new Joueur());
+		this.lesJoueurs.put(connection, new Joueur(this));
 	}
 
 	@Override
@@ -44,9 +46,10 @@ public class JeuServeur extends Jeu implements Global{
 			controle.evenementJeuServeur(AJOUTPANELMURS, connection);
 			String pseudo = chaine[1];
 			int numPerso = Integer.parseInt(chaine[2]);
-			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso);
+			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso, this.lesJoueurs.values(), this.lesMurs);
 			break;
 		}
+
 	}
 	
 	
@@ -54,6 +57,10 @@ public class JeuServeur extends Jeu implements Global{
 	public void deconnexion() {
 	}
 
+	public void ajoutJLabelJeuArene(JLabel jLabel) {
+		this.controle.evenementJeuServeur(AJOUTJLABELJEU, jLabel);
+	}
+	
 	/**
 	 * Envoi d'une information vers tous les clients
 	 * fais appel plusieurs fois à l'envoi de la classe Jeu

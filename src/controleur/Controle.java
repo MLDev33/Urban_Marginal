@@ -11,7 +11,9 @@ import outils.connexion.AsyncResponse;
 import outils.connexion.ClientSocket;
 import outils.connexion.Connection;
 import outils.connexion.ServeurSocket;
+
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 /**
  * Contrôleur et point d'entrée de l'applicaton
@@ -79,12 +81,12 @@ public class Controle implements AsyncResponse, Global {
 		}
 	}
 
-	// public void evenementJeuServeur(String ordre, Object info) {
-	// if(ordre.equals("ajout mur")) {
-	// frmArene.ajoutMurs(info);
-	// }
-	// }
 
+	/**
+	 * Demande provenant de JeuServeur
+	 * @param ordre ordre à exécuter
+	 * @param info information à traiter
+	 */
 	public void evenementJeuServeur(String ordre, Object info) {
 		switch (ordre) {
 		case AJOUTMUR:
@@ -92,6 +94,13 @@ public class Controle implements AsyncResponse, Global {
 			break;
 		case AJOUTPANELMURS:
 			this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
+			break;
+		case AJOUTJLABELJEU:
+			this.frmArene.ajoutJLabelJeu((JLabel)info);
+			break;
+		case MODIFPANELJEU :
+			this.leJeu.envoi((Connection)info, this.frmArene.getJpnJeu());
+			break;
 		}
 	}
 
@@ -105,6 +114,9 @@ public class Controle implements AsyncResponse, Global {
 		switch (ordre) {
 		case AJOUTPANELMURS:
 			this.frmArene.setJpnMurs((JPanel) info);
+			break;
+		case MODIFPANELJEU :
+			this.frmArene.setJpnJeu((JPanel)info);
 			break;
 		}
 	}
