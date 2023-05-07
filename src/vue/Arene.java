@@ -194,6 +194,7 @@ public class Arene extends JFrame implements Global {
 		contentPane.add(jspChat);
 
 		txtChat = new JTextArea();
+		txtChat.setEditable(false);
 		jspChat.setViewportView(txtChat);
 
 		JLabel lblFond = new JLabel("");
