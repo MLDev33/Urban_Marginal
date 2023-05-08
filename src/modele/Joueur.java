@@ -129,30 +129,35 @@ public class Joueur extends Objet implements Global {
 
 	/**
 	 * Gère une action reçue et qu'il faut afficher (déplacement, tire de boule...)
+	 * @param action action a exécutée (déplacement ou tir de boule)
+	 * @param lesMurs collection de murs
+	 * @param lesJoueurs collection de joueurs
 	 */
 	public void action(Integer action, Collection lesJoueurs, Collection lesMurs) {
-		switch(action) {
-		case KeyEvent.VK_LEFT :
-			orientation = GAUCHE; 
-			posX = deplace(posX, action, -PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
-			break;
-		case KeyEvent.VK_RIGHT :
-			orientation = DROITE; 
-			posX = deplace(posX, action, PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
-			break;
-		case KeyEvent.VK_UP :
-			posY = deplace(posY, action, -PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
-			break;
-		case KeyEvent.VK_DOWN :
-			posY = deplace(posY,  action, PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
-			break;	
-		case KeyEvent.VK_SPACE :
-			if(!this.boule.getjLabel().isVisible()) {
-				this.boule.tireBoule(this, lesMurs);
-			}	
-			break;
+		if(!this.estMort()) {
+			switch(action){
+			case KeyEvent.VK_LEFT :
+				orientation = GAUCHE; 
+				posX = deplace(posX, action, -PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
+				break;
+			case KeyEvent.VK_RIGHT :
+				orientation = DROITE; 
+				posX = deplace(posX, action, PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
+				break;
+			case KeyEvent.VK_UP :
+				posY = deplace(posY, action, -PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
+				break;
+			case KeyEvent.VK_DOWN :
+				posY = deplace(posY,  action, PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
+				break;	
+			case KeyEvent.VK_SPACE :
+				if(!this.boule.getjLabel().isVisible()) {
+					this.boule.tireBoule(this, lesMurs);
+				}
+				break;
+			}
+			this.affiche(MARCHE, this.etape);
 		}
-		this.affiche(MARCHE, this.etape);		
 	}
 
 	/**
@@ -213,9 +218,15 @@ public class Joueur extends Objet implements Global {
 	}
 	
 	/**
-	 * Le joueur se déconnecte et disparait
+	 * Le joueur disparait (ainsi que son message et sa boule)
 	 */
 	public void departJoueur() {
+		if(super.jLabel != null) {
+			super.jLabel.setVisible(false);
+			this.message.setVisible(false);
+			this.boule.getjLabel().setVisible(false);
+			this.jeuServeur.envoiJeuATous();
+		}
 	}
 	
 }
