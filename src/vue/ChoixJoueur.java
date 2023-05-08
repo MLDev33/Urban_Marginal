@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import controleur.Global;
+import outils.son.Son;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -41,6 +42,13 @@ public class ChoixJoueur extends JFrame implements Global{
 	
 	private int numPerso;
 	
+	private Son welcome;
+	
+	private Son clicPrecedent;
+	
+	private Son clicSuivant;
+	
+	private Son clicGo;
 
 
 	/**
@@ -53,6 +61,7 @@ public class ChoixJoueur extends JFrame implements Global{
 			numPerso = 3;
 		}
 		affichePerso();
+		this.clicPrecedent.play();
 	}
 	
 	/**
@@ -65,6 +74,7 @@ public class ChoixJoueur extends JFrame implements Global{
 			numPerso = 1;
 		}
 		affichePerso();
+		this.clicSuivant.play();
 	}
 	
 	/**
@@ -78,7 +88,7 @@ public class ChoixJoueur extends JFrame implements Global{
 		else {
 			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
 		}
-		
+		this.clicGo.play();
 	}
 	
 	
@@ -196,11 +206,15 @@ public class ChoixJoueur extends JFrame implements Global{
 		lblFond.setIcon(new ImageIcon(resource));		
 		contentPane.add(lblFond);
 		
-		
-		
 		// initialisation du numéro de personnage
 		this.numPerso = 1;
 		this.affichePerso();
+
+		this.welcome = new Son(getClass().getClassLoader().getResource(SONWELCOME));
+		this.clicPrecedent = new Son(getClass().getClassLoader().getResource(SONPRECEDENT));
+		this.clicSuivant = new Son(getClass().getClassLoader().getResource(SONSUIVANT));
+		this.clicGo = new Son(getClass().getClassLoader().getResource(SONGO));
+		this.welcome.play();
 		
 		// positionnement sur la zone de saisie
 		txtPseudo.requestFocus();
