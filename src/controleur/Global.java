@@ -113,6 +113,18 @@ public interface Global {
 	 */
 	String[] SON =  {CHEMINSONS + "fight.wav", CHEMINSONS + "hurt.wav", CHEMINSONS + "death.wav"} ;
 	/**
+	 * numéro correspondant au son FIGHT
+	 */
+	int FIGHT = 0;
+	/**
+	 * numéro correspondant au son HURT
+	 */
+	int HURT = 1;
+	/**
+	 * numéro correspondant au son DEATH
+	 */
+	int DEATH = 2;
+	/**
 	 * Extension des fichiers des images des personnages
 	 */
 	String EXTFICHIERPERSO = ".gif";
@@ -244,7 +256,10 @@ public interface Global {
 	 * ordre pour exécuter une action (déplacement, tire de boule)
 	 */
 	String ACTION = "action";
-
+	/**
+	 * ordre pour jouer un son (dans l'arène du client)
+	 */
+	String JOUESON = "joue son";
 
 
 }

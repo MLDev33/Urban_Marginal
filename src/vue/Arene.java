@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import controleur.Controle;
 import controleur.Global;
+import outils.son.Son;
 
 import java.net.URL;
 
@@ -51,7 +52,10 @@ public class Arene extends JFrame implements Global {
 	 * Permet de savoir si c'est une arène client ou serveur
 	 */
 	private Boolean client;
-
+	/**
+	 * Talbeau des sons de l'arène
+	 */
+	private Son[] lesSons = new Son[SON.length];
 	/**
 	 * 
 	 * @return the jpnMurs
@@ -127,6 +131,18 @@ public class Arene extends JFrame implements Global {
 		this.jpnJeu.repaint();
 	}
 	
+	/**
+	 * Joue le son correspondant au numéro reçu
+	 * @param numSon numéro du son (0 : fight, 1 : hurt; 2 : death)
+	 */
+	public void joueSon(Integer numSon) {
+		this.lesSons[numSon].play();
+	}
+	
+	/**
+	 * Evénément touche pressée dans la zone de saisie
+	 * @param e informations sur la touche
+	 */
 	public void txtSaisie_KeyPressed(KeyEvent e) {
 		// si validation
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -237,5 +253,11 @@ public class Arene extends JFrame implements Global {
 		lblFond.setBounds(0, 0, 800, 600);
 		contentPane.add(lblFond);
 
+		// gestion des sons pour le client
+		if (client) {
+			for (int k=0 ; k<SON.length ; k++) {
+				lesSons[k] = new Son(getClass().getClassLoader().getResource(SON[k])) ;
+			}
+		}
 	}
 }

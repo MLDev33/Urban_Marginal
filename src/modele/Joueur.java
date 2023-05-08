@@ -118,7 +118,6 @@ public class Joueur extends Objet implements Global {
 		// positionnement du personnage et affectation de la bonne image
 		super.jLabel.setBounds(posX, posY, LARGEURPERSO, HAUTEURPERSO);
 		String chemin = CHEMINPERSONNAGES+PERSO+this.numPerso+etat+etape+"d"+this.orientation+EXTFICHIERPERSO;
-System.out.println(chemin); // ML test à supprimer
 		URL resource = getClass().getClassLoader().getResource(chemin);
 		super.jLabel.setIcon(new ImageIcon(resource));
 		// positionnement et remplissage du message sous le perosnnage
