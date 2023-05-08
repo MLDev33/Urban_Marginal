@@ -135,8 +135,8 @@ public class Arene extends JFrame implements Global {
 				this.controle.evenementArene(this.txtSaisie.getText());
 				this.txtSaisie.setText("");
 			}
+			this.contentPane.requestFocus();
 		}
-		this.contentPane.requestFocus();
 	}
 	
 	/**
@@ -150,6 +150,7 @@ public class Arene extends JFrame implements Global {
 		case KeyEvent.VK_RIGHT :
 		case KeyEvent.VK_UP :
 		case KeyEvent.VK_DOWN :
+		case KeyEvent.VK_SPACE :
 			touche = e.getKeyCode();
 			break;
 		}
@@ -202,7 +203,6 @@ public class Arene extends JFrame implements Global {
 		jpnMurs.setLayout(null);		
 		contentPane.add(jpnMurs);
 		
-		
 		if(this.client) {
 			txtSaisie = new JTextField();
 			txtSaisie.addKeyListener(new KeyAdapter() {
@@ -222,6 +222,12 @@ public class Arene extends JFrame implements Global {
 		contentPane.add(jspChat);
 
 		txtChat = new JTextArea();
+		txtChat.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				contentPane_KeyPressed(e);
+			}
+		});
 		txtChat.setEditable(false);
 		jspChat.setViewportView(txtChat);
 

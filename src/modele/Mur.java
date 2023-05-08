@@ -17,13 +17,6 @@ public class Mur extends Objet implements Global{
 	 * Constructeur
 	 */
 	public Mur() {
-		//JLabel lblMur = new JLabel();
-		//posX = new Random().nextInt(800-35+1);
-		//posY = new Random().nextInt(600-35+1);
-		//lblMur.setBounds(posX, posY, COTEMUR, COTEMUR);
-		//URL resource = getClass().getClassLoader().getResource(MUR);
-		//lblMur.setIcon(new ImageIcon(resource));		
-		
 		// calcul position aléatoire du mur
 		posX = (int) Math.round(Math.random() * (LARGEURARENE - LARGEURMUR)) ;
 		posY = (int) Math.round(Math.random() * (HAUTEURARENE - HAUTEURMUR)) ;

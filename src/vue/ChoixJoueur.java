@@ -199,8 +199,8 @@ public class ChoixJoueur extends JFrame implements Global{
 		
 		
 		// initialisation du numéro de personnage
-		numPerso = 1;
-		affichePerso();
+		this.numPerso = 1;
+		this.affichePerso();
 		
 		// positionnement sur la zone de saisie
 		txtPseudo.requestFocus();
