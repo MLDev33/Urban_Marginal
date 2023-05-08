@@ -15,7 +15,6 @@ public abstract class Objet {
 	 * position X de l'objet
 	 */
 	protected Integer posX ;
-
 	/**
 	 * position Y de l'objet
 	 */
@@ -43,6 +42,18 @@ public abstract class Objet {
 	 */
 	public Integer getPosY() {
 		return posY;
+	}
+	/**
+	 * @param posX the posX to set
+	 */
+	public void setPosX(Integer posX) {
+		this.posX = posX;
+	}
+	/**
+	 * @param posY the posY to set
+	 */
+	public void setPosY(Integer posY) {
+		this.posY = posY;
 	}
 
 	/**
